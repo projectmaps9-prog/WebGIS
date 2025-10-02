@@ -4,13 +4,72 @@
   <meta charset="UTF-8">
   <title>Web GIS Portal - 2D Only</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@latest/ol.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --bg-color: #fff;
+      --text-color: #333;
+      --panel-bg: #fff;
+      --panel-text: #333;
+      --border-color: #ccc;
+      --hover-bg: #f0f0f0;
+      --topbar-bg: #2c3e50;
+      --topbar-text: white;
+      --submenu-bg: #34495e;
+      --subtab-bg: #2c3e50;
+      --subtab-text: white;
+      --subtab-hover: #3e5c76;
+      --divider-color: #ecf0f1;
+      --status-bg: rgba(255, 255, 255, 0.95);
+      --status-text: #333;
+      --footer-bg: #f8f8f8;
+      --footer-text: #666;
+      --link-color: #2c3e50;
+      --tooltip-bg: #2c3e50;
+      --popup-bg: rgba(255, 255, 255, 0.95);
+      --popup-text: #333;
+      --attribute-bg: #f5f5f5;
+      --search-bg: white;
+      --select-bg: #34495e;
+      --select-text: white;
+      --select-border: #ecf0f1;
+    }
+    .dark-theme {
+      --bg-color: #1a1a1a;
+      --text-color: #fff;
+      --panel-bg: #2c2c2c;
+      --panel-text: #ddd;
+      --border-color: #555;
+      --hover-bg: #404040;
+      --topbar-bg: #1a1a1a;
+      --topbar-text: #fff;
+      --submenu-bg: #2c2c2c;
+      --subtab-bg: #404040;
+      --subtab-text: #fff;
+      --subtab-hover: #555;
+      --divider-color: #555;
+      --status-bg: rgba(44, 44, 44, 0.95);
+      --status-text: #fff;
+      --footer-bg: #2c2c2c;
+      --footer-text: #aaa;
+      --link-color: #ecf0f1;
+      --tooltip-bg: #404040;
+      --popup-bg: rgba(44, 44, 44, 0.95);
+      --popup-text: #fff;
+      --attribute-bg: #404040;
+      --search-bg: #2c2c2c;
+      --select-bg: #555;
+      --select-text: #fff;
+      --select-border: #777;
+    }
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
       width: 100%;
       font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
     }
 
     /* Top navigation bar */
@@ -20,14 +79,14 @@
       left: 0;
       width: 100%;
       height: 45px;
-      background-color: #2c3e50;
+      background-color: var(--topbar-bg);
       display: flex;
       align-items: center;
       padding-left: 20px;
       z-index: 1000;
     }
     #topbar .tab {
-      color: white;
+      color: var(--topbar-text);
       margin-right: 25px;
       cursor: pointer;
       font-size: 14px;
@@ -36,7 +95,7 @@
       transition: border-bottom 0.2s;
     }
     #topbar .tab:hover {
-      border-bottom: 2px solid #ecf0f1;
+      border-bottom: 2px solid var(--divider-color);
     }
     #topbar .tab.active {
       border-bottom: 2px solid #e74c3c;
@@ -49,7 +108,7 @@
       left: 0;
       width: 100%;
       height: 40px;
-      background-color: #34495e;
+      background-color: var(--submenu-bg);
       display: none;
       align-items: center;
       padding: 0 20px;
@@ -60,8 +119,8 @@
       display: flex;
     }
     .submenu-panel .subtab {
-      background-color: #2c3e50;
-      color: white;
+      background-color: var(--subtab-bg);
+      color: var(--subtab-text);
       padding: 6px 12px;
       margin-right: 15px;
       border-radius: 6px;
@@ -71,13 +130,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
     }
     .submenu-panel .subtab:hover {
-      background-color: #3e5c76;
+      background-color: var(--subtab-hover);
       transform: scale(1.05);
     }
-    .submenu-panel .subtab span.icon {
+    .submenu-panel .subtab i {
       margin-right: 5px;
+      font-size: 12px;
     }
 
     /* Settings submenu */
@@ -87,7 +148,7 @@
       left: 0;
       width: 100%;
       height: 40px;
-      background-color: #34495e;
+      background-color: var(--submenu-bg);
       display: none;
       align-items: center;
       padding: 0 20px;
@@ -99,7 +160,7 @@
     }
     #settingsSubmenu .panel {
       flex: 1;
-      background-color: #2c3e50;
+      background-color: var(--subtab-bg);
       padding: 5px 10px;
       border-radius: 4px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -116,11 +177,11 @@
     #settingsSubmenu .divider {
       width: 1px;
       height: 30px;
-      background-color: #ecf0f1;
+      background-color: var(--divider-color);
       margin: 0 10px;
     }
     #settingsSubmenu label {
-      color: white;
+      color: var(--subtab-text);
       font-size: 12px;
       display: flex;
       align-items: center;
@@ -131,9 +192,9 @@
       transform: scale(1.0);
     }
     #settingsSubmenu select {
-      background: #34495e;
-      color: white;
-      border: 1px solid #ecf0f1;
+      background: var(--select-bg);
+      color: var(--select-text);
+      border: 1px solid var(--select-border);
       padding: 2px 5px;
       border-radius: 3px;
       font-size: 12px;
@@ -142,7 +203,7 @@
       height: 20px;
     }
     #settingsSubmenu select:hover {
-      background: #3e5c76;
+      background: var(--subtab-hover);
     }
 
     /* Layer panel */
@@ -152,8 +213,8 @@
       bottom: 10px;
       left: 10px;
       width: 280px;
-      background: #fff;
-      border: 1px solid #ccc;
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
       border-radius: 6px;
       padding: 0;
       z-index: 1000;
@@ -169,8 +230,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #2c3e50;
-      color: white;
+      background: var(--topbar-bg);
+      color: var(--topbar-text);
       padding: 10px 15px;
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
@@ -200,9 +261,11 @@
       padding: 6px 30px 6px 8px;
       width: 100%;
       font-size: 13px;
-      border: 1px solid #ccc;
+      border: 1px solid var(--border-color);
       border-radius: 4px;
       box-sizing: border-box;
+      background-color: var(--search-bg);
+      color: var(--text-color);
     }
     .search-btn {
       position: absolute;
@@ -214,31 +277,33 @@
       cursor: pointer;
       font-size: 16px;
       line-height: 1;
+      color: var(--text-color);
     }
     .search-btn:hover {
-      color: #2c3e50;
+      color: var(--link-color);
     }
     #searchResults {
       position: absolute;
       top: 100%;
       left: 0;
       width: 100%;
-      background: white;
-      border: 1px solid #ccc;
+      background: var(--search-bg);
+      border: 1px solid var(--border-color);
       border-radius: 0 0 4px 4px;
       max-height: 200px;
       overflow-y: auto;
       z-index: 1001;
       display: none;
       box-sizing: border-box;
+      color: var(--text-color);
     }
     #searchResults .result-item {
       padding: 8px;
       cursor: pointer;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--border-color);
     }
     #searchResults .result-item:hover {
-      background: #f0f0f0;
+      background: var(--hover-bg);
     }
     #layerPanel .layer-list {
       flex-grow: 1;
@@ -248,16 +313,16 @@
     #layerPanel .layer-footer {
       flex-shrink: 0;
       padding: 10px 15px;
-      background: #f8f8f8;
-      border-top: 1px solid #ddd;
+      background: var(--footer-bg);
+      border-top: 1px solid var(--border-color);
       text-align: center;
       font-size: 12px;
-      color: #666;
+      color: var(--footer-text);
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
     }
     #layerPanel .layer-footer a {
-      color: #2c3e50;
+      color: var(--link-color);
       text-decoration: none;
       font-weight: bold;
     }
@@ -269,11 +334,11 @@
     }
     #layerPanel .layer-group h4 {
       font-size: 13px;
-      color: #2c3e50;
+      color: var(--link-color);
       margin: 10px 0 5px 5px;
       padding-bottom: 3px;
       font-weight: bold;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid var(--border-color);
     }
     #layerPanel .layer-item {
       display: flex;
@@ -284,7 +349,7 @@
       transition: background 0.2s;
     }
     #layerPanel .layer-item:hover {
-      background: #f0f0f0;
+      background: var(--hover-bg);
     }
     #layerPanel .layer-item input[type="checkbox"] {
       margin-right: 8px;
@@ -294,11 +359,12 @@
       flex-grow: 1;
       cursor: pointer;
       user-select: none;
+      color: var(--panel-text);
     }
 
     /* Dropdowns */
     #featureDropdown, #rasterDropdown, #objectDropdown, #baseLayerDropdown {
-      background-color: #34495e;
+      background-color: var(--submenu-bg);
       padding: 5px 0;
       position: absolute;
       display: none;
@@ -308,24 +374,29 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
     #featureDropdown .subtab, #rasterDropdown .subtab, #objectDropdown .subtab, #baseLayerDropdown .subtab {
-      background-color: #2c3e50;
-      color: white;
+      background-color: var(--subtab-bg);
+      color: var(--subtab-text);
       padding: 6px 12px;
       margin: 3px 8px;
       border-radius: 6px;
       cursor: pointer;
       font-size: 13px;
       transition: background 0.2s, transform 0.2s;
+      position: relative;
     }
     #featureDropdown .subtab:hover, #rasterDropdown .subtab:hover, #objectDropdown .subtab:hover, #baseLayerDropdown .subtab:hover {
-      background-color: #3e5c76;
+      background-color: var(--subtab-hover);
       transform: scale(1.05);
+    }
+    #featureDropdown .subtab i, #rasterDropdown .subtab i, #objectDropdown .subtab i, #baseLayerDropdown .subtab i {
+      margin-right: 5px;
+      font-size: 12px;
     }
 
     /* Context menu */
     #contextMenu {
       position: absolute;
-      background-color: #34495e;
+      background-color: var(--submenu-bg);
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       z-index: 2000;
@@ -334,7 +405,7 @@
       padding: 2px 0;
     }
     #contextMenu .menu-item {
-      color: white;
+      color: var(--subtab-text);
       padding: 8px 16px;
       cursor: pointer;
       font-size: 13px;
@@ -342,9 +413,10 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      position: relative;
     }
     #contextMenu .menu-item:hover {
-      background-color: #2c3e50;
+      background-color: var(--subtab-bg);
     }
 
     /* Map container */
@@ -372,14 +444,14 @@
       display: block;
     }
     .dual-map #map-left {
-      border-right: 2px solid #34495e;
+      border-right: 2px solid var(--submenu-bg);
     }
 
     /* Base layer popups */
     #baseLayerPopupLeft, #baseLayerPopupRight {
       position: absolute;
       top: 10px;
-      background: #34495e;
+      background: var(--submenu-bg);
       padding: 8px;
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
@@ -387,9 +459,9 @@
       display: none;
     }
     #baseLayerPopupLeft select, #baseLayerPopupRight select {
-      background: #2c3e50;
-      color: white;
-      border: 1px solid #ecf0f1;
+      background: var(--subtab-bg);
+      color: var(--subtab-text);
+      border: 1px solid var(--select-border);
       padding: 4px;
       border-radius: 4px;
       font-size: 12px;
@@ -397,7 +469,7 @@
       width: 150px;
     }
     #baseLayerPopupLeft select:hover, #baseLayerPopupRight select:hover {
-      background: #3e5c76;
+      background: var(--subtab-hover);
     }
     #baseLayerPopupLeft {
       left: 50%;
@@ -411,14 +483,15 @@
     /* Attribute table popup */
     .attribute-table {
       position: absolute;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid #ccc;
+      background: var(--popup-bg);
+      border: 1px solid var(--border-color);
       border-radius: 4px;
       padding: 10px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       z-index: 1001;
       font-size: 12px;
       max-width: 200px;
+      color: var(--popup-text);
     }
     .attribute-table table {
       width: 100%;
@@ -426,11 +499,11 @@
     }
     .attribute-table td {
       padding: 5px;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border-color);
     }
     .attribute-table td:first-child {
       font-weight: bold;
-      background: #f5f5f5;
+      background: var(--attribute-bg);
     }
     .attribute-table .close-btn {
       position: absolute;
@@ -450,14 +523,15 @@
     /* Feature popup */
     .feature-popup {
       position: absolute;
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid #ccc;
+      background: var(--popup-bg);
+      border: 1px solid var(--border-color);
       border-radius: 6px;
       padding: 15px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       z-index: 1002;
       font-size: 13px;
       width: 220px;
+      color: var(--popup-text);
     }
     .feature-popup .close-btn {
       position: absolute;
@@ -483,9 +557,11 @@
       width: 100%;
       padding: 4px;
       margin-bottom: 10px;
-      border: 1px solid #ccc;
+      border: 1px solid var(--border-color);
       border-radius: 4px;
       font-size: 12px;
+      background-color: var(--panel-bg);
+      color: var(--panel-text);
     }
     .feature-popup input[type="color"] {
       height: 30px;
@@ -495,15 +571,15 @@
     .feature-popup button {
       width: 100%;
       padding: 6px;
-      background: #2c3e50;
-      color: white;
+      background: var(--topbar-bg);
+      color: var(--topbar-text);
       border: none;
       border-radius: 4px;
       cursor: pointer;
       font-size: 13px;
     }
     .feature-popup button:hover {
-      background: #34495e;
+      background: var(--submenu-bg);
     }
 
     /* Audit Popup */
@@ -513,21 +589,22 @@
       right: 20px;
       width: 320px;
       height: 400px;
-      background: #fff;
-      border: 1px solid #ccc;
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
       border-radius: 6px;
       padding: 0;
       z-index: 1003;
       box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.25);
       display: none;
       flex-direction: column;
+      color: var(--panel-text);
     }
     #auditPopup .popup-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #2c3e50;
-      color: white;
+      background: var(--topbar-bg);
+      color: var(--topbar-text);
       padding: 10px 15px;
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
@@ -557,18 +634,18 @@
     }
     .log-item {
       padding: 5px;
-      border-bottom: 1px solid #eee;
-      color: #666;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--footer-text);
       margin-bottom: 5px;
     }
     #auditPopup .layer-footer {
       flex-shrink: 0;
       padding: 10px 15px;
-      background: #f8f8f8;
-      border-top: 1px solid #ddd;
+      background: var(--footer-bg);
+      border-top: 1px solid var(--border-color);
       text-align: center;
       font-size: 12px;
-      color: #666;
+      color: var(--footer-text);
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
       display: flex;
@@ -577,15 +654,15 @@
     }
     #auditPopup .layer-footer button {
       padding: 5px 10px;
-      background: #2c3e50;
-      color: white;
+      background: var(--topbar-bg);
+      color: var(--topbar-text);
       border: none;
       border-radius: 4px;
       cursor: pointer;
       font-size: 12px;
     }
     #auditPopup .layer-footer button:hover {
-      background: #34495e;
+      background: var(--submenu-bg);
     }
 
     /* Zoom controls */
@@ -597,7 +674,7 @@
       background: none !important;
     }
     .ol-zoom-in, .ol-zoom-out {
-      background: #2c3e50 !important;
+      background: var(--topbar-bg) !important;
       color: white !important;
       border-radius: 50% !important;
       width: 40px !important;
@@ -609,7 +686,7 @@
       transition: transform 0.2s, background 0.2s;
     }
     .ol-zoom-in:hover, .ol-zoom-out:hover {
-      background: #34495e !important;
+      background: var(--submenu-bg) !important;
       transform: scale(1.1);
     }
     .dual-map .ol-zoom {
@@ -621,7 +698,7 @@
       position: absolute;
       right: 10px;
       top: calc(50% - 100px);
-      background: #2c3e50;
+      background: var(--topbar-bg);
       color: white;
       border: none;
       border-radius: 50%;
@@ -640,7 +717,7 @@
       right: 5px !important;
     }
     .ol-north:hover {
-      background: #34495e;
+      background: var(--submenu-bg);
       transform: scale(1.1);
     }
 
@@ -649,16 +726,17 @@
       position: absolute;
       bottom: 10px;
       right: 10px;
-      background: rgba(255, 255, 255, 0.95);
+      background: var(--status-bg);
       padding: 6px 10px;
       font-size: 13px;
-      border: 1px solid #ccc;
+      border: 1px solid var(--border-color);
       border-radius: 6px;
       display: flex;
       align-items: center;
       gap: 12px;
       z-index: 1000;
       white-space: nowrap;
+      color: var(--status-text);
     }
     #coords {
       margin: 0;
@@ -667,11 +745,21 @@
       width: 70px;
       padding: 2px;
       font-size: 12px;
+      background-color: var(--panel-bg);
+      color: var(--panel-text);
+      border: 1px solid var(--border-color);
     }
     #goto button {
       padding: 3px 8px;
       font-size: 12px;
       cursor: pointer;
+      background: var(--topbar-bg);
+      color: var(--topbar-text);
+      border: none;
+      border-radius: 4px;
+    }
+    #goto button:hover {
+      background: var(--submenu-bg);
     }
     #epsgContainer {
       display: flex;
@@ -684,12 +772,18 @@
       right: 0;
       padding: 4px 6px;
       font-size: 13px;
-      border: 1px solid #ccc;
+      border: 1px solid var(--border-color);
       border-radius: 4px;
       display: none;
-      background: white;
+      background: var(--panel-bg);
+      color: var(--panel-text);
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       z-index: 1100;
+    }
+    #epsgLabel {
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--link-color);
     }
   </style>
 </head>
@@ -706,30 +800,30 @@
 
   <!-- Sub-menu for Home tab -->
   <div id="homeSubmenu" class="submenu-panel show">
-    <div class="subtab" id="selectTool"><span class="icon">↖</span> Select Tool</div>
-    <div class="subtab" data-type="feature"><span class="icon">📊</span> Add Feature Layer</div>
-    <div class="subtab" data-type="raster"><span class="icon">🖼️</span> Add Raster Layer</div>
-    <div class="subtab" data-type="object"><span class="icon">🎯</span> Object Layer</div>
+    <div class="subtab" id="selectTool"><i class="fas fa-mouse-pointer"></i> Select Tool</div>
+    <div class="subtab" data-type="feature"><i class="fas fa-layer-group"></i> Add Feature Layer</div>
+    <div class="subtab" data-type="raster"><i class="fas fa-image"></i> Add Raster Layer</div>
+    <div class="subtab" data-type="object"><i class="fas fa-crosshairs"></i> Object Layer</div>
   </div>
 
   <!-- Sub-menu for Analysis tab -->
   <div id="submenu" class="submenu-panel">
-    <div class="subtab"><span class="icon">📐</span> Area Calculation</div>
-    <div class="subtab"><span class="icon">📏</span> Measurement</div>
-    <div class="subtab"><span class="icon">🛡️</span> Buffer Tools</div>
+    <div class="subtab" id="vectorBtn"><i class="fas fa-vector-square"></i> Vector</div>
+    <div class="subtab" id="rasterBtn"><i class="fas fa-image"></i> Raster</div>
   </div>
 
   <!-- Sub-menu for Objects tab -->
   <div id="objectsSubmenu" class="submenu-panel">
-    <div class="subtab" data-type="Point"><span class="icon">📍</span> Point</div>
-    <div class="subtab" data-type="LineString"><span class="icon">📏</span> Line</div>
-    <div class="subtab" data-type="Polygon"><span class="icon">🔷</span> Polygon</div>
+    <div class="subtab" data-type="Point"><i class="fas fa-map-marker-alt"></i> Point</div>
+    <div class="subtab" data-type="LineString"><i class="fas fa-route"></i> Line</div>
+    <div class="subtab" data-type="Polygon"><i class="fas fa-draw-polygon"></i> Polygon</div>
   </div>
 
   <!-- Sub-menu for View tab -->
   <div id="viewSubmenu" class="submenu-panel">
-    <div class="subtab" id="dualMapToggle"><span class="icon">🖼️</span> Dual Map View</div>
-    <div class="subtab" id="baseLayerBtn"><span class="icon">🌍</span> Map Base Layer</div>
+    <div class="subtab" id="dualMapToggle"><i class="fas fa-columns"></i> Dual Map View</div>
+    <div class="subtab" id="baseLayerBtn"><i class="fas fa-globe"></i> Map Base Layer</div>
+    <div class="subtab" id="themeToggle"><i class="fas fa-moon"></i> Dark Mode</div>
   </div>
 
   <!-- Sub-menu for Settings tab -->
@@ -804,7 +898,7 @@
     </div>
     <div class="search-container">
       <input type="text" class="search-bar" id="layerSearch" placeholder="Search places">
-      <button class="search-btn" id="searchBtn">🔍</button>
+      <button class="search-btn" id="searchBtn"><i class="fas fa-search"></i></button>
       <div id="searchResults"></div>
     </div>
     <div class="layer-list" id="layerList"></div>
@@ -822,14 +916,14 @@
     <div class="log-list" id="logList"></div>
     <div class="layer-footer">
       Last updated: <span id="lastUpdate">--</span>
-      <button id="exportAuditBtn">📄 Export PDF</button>
+      <button id="exportAuditBtn"><i class="fas fa-file-pdf"></i> Export PDF</button>
     </div>
   </div>
 
   <!-- Context menu -->
   <div id="contextMenu" class="context-menu">
-    <div class="menu-item" id="createGroup">📁 Create Group</div>
-    <div class="menu-item" id="refreshLayers">🔄 Refresh</div>
+    <div class="menu-item" id="createGroup"><i class="fas fa-folder"></i> Create Group</div>
+    <div class="menu-item" id="refreshLayers"><i class="fas fa-sync-alt"></i> Refresh</div>
   </div>
 
   <!-- Map container -->
@@ -839,7 +933,8 @@
   </div>
 
   <!-- North button -->
-  <div class="ol-north" id="northBtn">↑</div>
+  <div class="ol-north" id="northBtn"><i class="fa-solid fa-arrow-up"></i>
+</div>
 
   <!-- Status bar -->
   <div id="statusbar">
@@ -847,10 +942,10 @@
     <div id="goto">
       Lat: <input type="text" id="latInput" placeholder="e.g. 28.6">
       Lon: <input type="text" id="lonInput" placeholder="e.g. 77.2">
-      <button id="goBtn">Go</button>
+      <button id="goBtn"><i class="fas fa-location-crosshairs"></i> Go</button>
     </div>
     <div id="epsgContainer">
-      <span id="epsgLabel" style="cursor:pointer; font-weight:bold; color:#2c3e50;">
+      <span id="epsgLabel" style="cursor:pointer; font-weight:bold; color:var(--link-color);">
         🌐 EPSG: 3857
       </span>
       <input type="text" id="epsgInput" placeholder="Enter EPSG" style="display:none;">
@@ -980,7 +1075,7 @@
         baseLayerPopupLeft.style.display = 'block';
         baseLayerPopupRight.style.display = 'block';
         syncMaps();
-        dualMapToggle.textContent = '🖼️ Single Map View';
+        dualMapToggle.innerHTML = '<i class="fas fa-columns"></i> Single Map View';
         addToAudit('Toggled', 'Map View', 'Dual Map', 'Activated');
       } else {
         mapContainer.classList.remove('dual-map');
@@ -989,7 +1084,7 @@
         mapLeft.setTarget(null);
         baseLayerPopupLeft.style.display = 'none';
         baseLayerPopupRight.style.display = 'none';
-        dualMapToggle.textContent = '🖼️ Dual Map View';
+        dualMapToggle.innerHTML = '<i class="fas fa-columns"></i> Dual Map View';
         addToAudit('Toggled', 'Map View', 'Single Map', 'Activated');
       }
       mapRight.updateSize();
@@ -1014,6 +1109,17 @@
       }
     }
 
+    // Theme Toggle
+    let isDark = false;
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      isDark = !isDark;
+      document.documentElement.classList.toggle('dark-theme', isDark);
+      const icon = isDark ? 'fas fa-sun' : 'fas fa-moon';
+      const text = isDark ? 'Light Mode' : 'Dark Mode';
+      document.getElementById('themeToggle').innerHTML = `<i class="${icon}"></i> ${text}`;
+      addToAudit('Toggled', 'Theme', isDark ? 'Dark' : 'Light');
+    });
+
     // Toolbar and submenu logic
     const tabs = document.querySelectorAll("#topbar .tab");
     const homeSubmenu = document.getElementById("homeSubmenu");
@@ -1023,6 +1129,43 @@
     const settingsSubmenu = document.getElementById("settingsSubmenu");
     const auditPopup = document.getElementById("auditPopup");
     let drawInteraction;
+
+    // Analysis submenu layouts
+    const originalSubmenuHTML = submenu.innerHTML;
+    function resetSubmenu() {
+      submenu.innerHTML = originalSubmenuHTML;
+      document.getElementById('vectorBtn').addEventListener('click', showVectorLayout);
+      document.getElementById('rasterBtn').addEventListener('click', showRasterLayout);
+    }
+    function showVectorLayout() {
+      submenu.innerHTML = `
+        <div class="subtab" id="backBtn"><i class="fas fa-arrow-left"></i> Back</div>
+        <div class="subtab" data-tool="areaCalc"><i class="fas fa-ruler-combined"></i> Area Calculation</div>
+        <div class="subtab" data-tool="measurement"><i class="fas fa-ruler-horizontal"></i> Measurement</div>
+        <div class="subtab" data-tool="buffer"><i class="fas fa-shield-alt"></i> Buffer Tools</div>
+        <div class="subtab" data-tool="clip"><i class="fas fa-cut"></i> Clip</div>
+        <div class="subtab" data-tool="intersect"><i class="fas fa-object-group"></i> Intersect</div>
+        <div class="subtab" data-tool="dissolve"><i class="fas fa-compress-arrows-alt"></i> Dissolve</div>
+        <div class="subtab" data-tool="union"><i class="fas fa-object-ungroup"></i> Union</div>
+        <div class="subtab" data-tool="spatialJoin"><i class="fas fa-link"></i> Spatial Join</div>
+      `;
+      document.getElementById('backBtn').addEventListener('click', resetSubmenu);
+      submenu.querySelectorAll('.subtab[data-tool]').forEach(subtab => {
+        subtab.addEventListener('click', () => alert(`Clicked "${subtab.textContent.trim()}" Vector tool!`));
+      });
+    }
+    function showRasterLayout() {
+      submenu.innerHTML = `
+        <div class="subtab" id="backBtn"><i class="fas fa-arrow-left"></i> Back</div>
+        <div class="subtab" data-tool="heatmap"><i class="fas fa-chart-line"></i> Heatmap</div>
+        <div class="subtab" data-tool="rasterCalc"><i class="fas fa-calculator"></i> Raster Calculations</div>
+        <div class="subtab" data-tool="terrain"><i class="fas fa-mountain"></i> Terrain Analysis</div>
+      `;
+      document.getElementById('backBtn').addEventListener('click', resetSubmenu);
+      submenu.querySelectorAll('.subtab[data-tool]').forEach(subtab => {
+        subtab.addEventListener('click', () => alert(`Clicked "${subtab.textContent.trim()}" Raster tool!`));
+      });
+    }
 
     document.getElementById('dualMapToggle').addEventListener('click', toggleDualMap);
     document.getElementById('closeAuditPopup').addEventListener("click", () => {
@@ -1070,6 +1213,10 @@
       switchBaseLayer(mapRight, e.target.value, allBaseLayersRight, 'right');
     });
 
+    // Initialize analysis buttons
+    document.getElementById('vectorBtn').addEventListener('click', showVectorLayout);
+    document.getElementById('rasterBtn').addEventListener('click', showRasterLayout);
+
     tabs.forEach(tab => {
       tab.addEventListener("click", () => {
         tabs.forEach(t => t.classList.remove("active"));
@@ -1089,7 +1236,10 @@
           if (isDualMap) mapRight.removeInteraction(drawInteraction);
         }
         if (tab.id === "homeTab") homeSubmenu.classList.add("show");
-        else if (tab.id === "analysisTab") submenu.classList.add("show");
+        else if (tab.id === "analysisTab") {
+          submenu.classList.add("show");
+          resetSubmenu();
+        }
         else if (tab.id === "objectsTab") objectsSubmenu.classList.add("show");
         else if (tab.id === "viewTab") viewSubmenu.classList.add("show");
         else if (tab.id === "settingsTab") settingsSubmenu.classList.add("show");
@@ -1111,10 +1261,6 @@
         viewSubmenu.classList.remove("show");
         settingsSubmenu.classList.remove("show");
       });
-    });
-
-    document.querySelectorAll("#submenu .subtab").forEach(subtab => {
-      subtab.addEventListener("click", () => alert(`Clicked "${subtab.textContent}" tool!`));
     });
 
     // Coordinate formatting
@@ -1428,8 +1574,8 @@
     featureDropdown.style.borderRadius = "6px";
     featureDropdown.style.boxShadow = "0 2px 6px rgba(0,0,0,0.2)";
     featureDropdown.innerHTML = `
-      <div class="subtab" data-action="vector">📁 Add Vector Data</div>
-      <div class="subtab" data-action="wfs">🌐 Open WFS</div>
+      <div class="subtab" data-action="vector"><i class="fas fa-file-import"></i> Add Vector Data</div>
+      <div class="subtab" data-action="wfs"><i class="fas fa-globe-americas"></i> Open WFS</div>
     `;
     document.body.appendChild(featureDropdown);
     featureButton.addEventListener("click", (e) => {
@@ -1462,8 +1608,8 @@
     rasterDropdown.style.borderRadius = "6px";
     rasterDropdown.style.boxShadow = "0 2px 6px rgba(0,0,0,0.2)";
     rasterDropdown.innerHTML = `
-      <div class="subtab" data-action="imagery">🖼️ Add Imagery</div>
-      <div class="subtab" data-action="wms">🌍 Open WMS</div>
+      <div class="subtab" data-action="imagery"><i class="fas fa-image"></i> Add Imagery</div>
+      <div class="subtab" data-action="wms"><i class="fas fa-globe"></i> Open WMS</div>
     `;
     document.body.appendChild(rasterDropdown);
     rasterButton.addEventListener("click", (e) => {
@@ -1495,9 +1641,9 @@
     objectDropdown.style.borderRadius = "6px";
     objectDropdown.style.boxShadow = "0 2px 6px rgba(0,0,0,0.2)";
     objectDropdown.innerHTML = `
-      <div class="subtab" data-type="Point"><span class="icon">📍</span> Point</div>
-      <div class="subtab" data-type="LineString"><span class="icon">📏</span> Line</div>
-      <div class="subtab" data-type="Polygon"><span class="icon">🔷</span> Polygon</div>
+      <div class="subtab" data-type="Point"><i class="fas fa-map-marker-alt"></i> Point</div>
+      <div class="subtab" data-type="LineString"><i class="fas fa-route"></i> Line</div>
+      <div class="subtab" data-type="Polygon"><i class="fas fa-draw-polygon"></i> Polygon</div>
     `;
     document.body.appendChild(objectDropdown);
     objectButton.addEventListener("click", (e) => {
